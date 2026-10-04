@@ -1,9 +1,3 @@
-"""Singly linked list used by the /works/linkedlist page.
-
-Every operation that can fail raises ValueError with a readable message,
-so the Flask route can show it to the user.
-"""
-
 
 class Node:
     def __init__(self, data):
@@ -16,7 +10,7 @@ class LinkedList:
         self.head = None
         self.size = 0
 
-    # ---------- insertion ----------
+    
     def insert_at_head(self, data):
         node = Node(data)
         node.next = self.head
@@ -48,7 +42,7 @@ class LinkedList:
         current.next = node
         self.size += 1
 
-    # ---------- deletion ----------
+    
     def delete_head(self):
         if self.head is None:
             raise ValueError("The list is empty.")
@@ -71,7 +65,7 @@ class LinkedList:
         return removed
 
     def delete_value(self, data):
-        """Delete the first node whose data equals `data`."""
+        
         if self.head is None:
             raise ValueError("The list is empty.")
         if self.head.data == data:
@@ -104,7 +98,7 @@ class LinkedList:
 
    
     def search(self, data):
-        """Return the index of the first match, or -1."""
+        
         current = self.head
         index = 0
         while current:
