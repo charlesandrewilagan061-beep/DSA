@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Not Found</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            {% if request.path.startswith('/works/') %}
+                <li><a href="/">Home</a></li>
+                {% if request.path != '/works/uppercase' %}
+                <li><a href="/works/uppercase">toUpperCase</a></li>
+                {% endif %}
+                {% if request.path != '/works/area/circle' %}
+                <li><a href="/works/area/circle">Area of a Circle</a></li>
+                {% endif %}
+                {% if request.path != '/works/area/triangle' %}
+                <li><a href="/works/area/triangle">Area of a Triangle</a></li>
+                {% endif %}
+                {% if request.path != '/works/linkedlist' %}
+                <li><a href="/works/linkedlist">Linked List</a></li>
+                {% endif %}
+            {% else %}
+                {% if request.path != '/' %}
+                <li><a href="/">Home</a></li>
+                {% endif %}
+                {% if request.path != '/profile' %}
+                <li><a href="/profile">Profile</a></li>
+                {% endif %}
+                {% if request.path != '/works' %}
+                <li><a href="/works">Works</a></li>
+                {% endif %}
+                {% if request.path != '/contact' %}
+                <li><a href="/contact">Contact</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+
+    <h1>Page Not Found</h1>
+    <p>Sorry, that page does not exist.</p>
+</body>
+</html>

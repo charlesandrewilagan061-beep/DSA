@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Programming Works</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="works-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        {% if request.path != '/' %}
+        <a href="/">Home</a>
+        {% endif %}
+
+        {% if request.path != '/profile' %}
+        <a href="/profile">Profile</a>
+        {% endif %}
+
+        {% if request.path != '/works' %}
+        <a href="/works">Works</a>
+        {% endif %}
+
+        {% if request.path != '/contact' %}
+        <a href="/contact">Contact</a>
+        {% endif %}
+
+    </div>
+</nav>
+
+<div class="works-list">
+
+    <h1>Programming Works</h1>
+
+    <a href="/works/uppercase" class="work-link">
+        <h2>toUpperCase</h2>
+        <p>Convert a string into uppercase letters.</p>
+    </a>
+
+    <a href="/works/area/circle" class="work-link">
+        <h2>Area of a Circle</h2>
+        <p>Calculate the area of a circle using its radius.</p>
+    </a>
+
+    <a href="/works/area/triangle" class="work-link">
+        <h2>Area of a Triangle</h2>
+        <p>Calculate the area using the base and height.</p>
+    </a>
+
+    <a href="/works/linkedlist" class="work-link">
+        <h2>Linked List</h2>
+        <p>Linked list programming exercise.</p>
+    </a>
+
+</div>
+
+</body>
+</html>

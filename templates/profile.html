@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="profile-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        {% if request.path != '/' %}
+        <a href="/">Home</a>
+        {% endif %}
+
+        {% if request.path != '/profile' %}
+        <a href="/profile">Profile</a>
+        {% endif %}
+
+        {% if request.path != '/works' %}
+        <a href="/works">Works</a>
+        {% endif %}
+
+        {% if request.path != '/contact' %}
+        <a href="/contact">Contact</a>
+        {% endif %}
+
+    </div>
+</nav>
+
+
+<div class="profile-container">
+
+    <!-- ABOUT ME -->
+    <div class="info-box">
+        <h1>About Me</h1>
+
+        <p><b>Name:</b> Charles Andrew P. Ilagan</p>
+        <p><b>Section:</b> 2-3</p>
+        <p><b>Course:</b> Data Structures and Algorithms</p>
+        <p><b>Program:</b> BSCpE</p>
+    </div>
+
+
+    <!-- HOBBIES -->
+    <div class="hobbies-box">
+        <h2>Hobbies</h2>
+
+        <ul>
+            <li>Playing Games</li>
+            <li>Programming</li>
+            <li>Listening to Music</li>
+            <li>Watching Videos</li>
+        </ul>
+    </div>
+
+
+    <!-- PROFILE PICTURE -->
+    <div class="profile-photo">
+        <img src="{{ url_for('static', filename='images/me.jpg') }}"
+             alt="Profile Picture">
+    </div>
+
+
+    <!-- MOTTO -->
+    <div class="quote-box">
+        <h2>Motto</h2>
+        <p>"Just go with the flow"</p>
+    </div>
+
+
+    <!-- CURRENTLY -->
+    <div class="currently-box">
+
+        <div class="currently-title">
+            <h2>Currently</h2>
+            <p>What I'm into right now</p>
+        </div>
+
+        <div class="currently-grid">
+
+            <div class="current-item">
+                <div class="current-icon">🎮</div>
+
+                <div>
+                    <h3>Playing</h3>
+                    <p>Valorant</p>
+                </div>
+            </div>
+
+
+            <div class="current-item">
+                <div class="current-icon">💻</div>
+
+                <div>
+                    <h3>Learning</h3>
+                    <p>Python & Data Structures</p>
+                </div>
+            </div>
+
+
+            <div class="current-item">
+                <div class="current-icon">🎧</div>
+
+                <div>
+                    <h3>Listening</h3>
+                    <p>Music while programming</p>
+                </div>
+            </div>
+
+
+            <div class="current-item">
+                <div class="current-icon">🌱</div>
+
+                <div>
+                    <h3>Goal</h3>
+                    <p>Improve and keep learning</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

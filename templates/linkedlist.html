@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linked List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="works-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        <a href="/">Home</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/works">Works</a>
+
+        <a href="/contact">Contact</a>
+
+    </div>
+</nav>
+
+<div class="work-container">
+
+    <div class="work-card ll-card">
+
+        <div class="work-header">
+            <h1>Singly Linked List</h1>
+            <p>Build and modify a linked list. Size: <b>{{ size }}</b></p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="ll-message ll-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endwith %}
+
+        <!-- LIST VISUALIZATION -->
+        <div class="ll-visual">
+            {% if items %}
+                <span class="ll-label">HEAD</span>
+                {% for item in items %}
+                    <div class="ll-node {% if found == loop.index0 %}ll-found{% endif %}">
+                        <div class="ll-data">{{ item }}</div>
+                        <div class="ll-index">{{ loop.index0 }}</div>
+                    </div>
+                    <span class="ll-arrow">&rarr;</span>
+                {% endfor %}
+                <span class="ll-null">NULL</span>
+            {% else %}
+                <span class="ll-empty">The list is empty. Insert a value to begin.</span>
+            {% endif %}
+        </div>
+
+        <!-- CONTROLS -->
+        <form action="/works/linkedlist" method="post" class="ll-form">
+
+            <label for="value">Value</label>
+            <input type="text" id="value" name="value" placeholder="Enter a value">
+
+            <label for="index">Index <small>(only for "at index" actions)</small></label>
+            <input type="text" id="index" name="index" placeholder="e.g. 2">
+
+            <div class="ll-group">
+                <h3>Insert</h3>
+                <div class="ll-buttons">
+                    <button type="submit" name="action" value="insert_head">At Head</button>
+                    <button type="submit" name="action" value="insert_tail">At Tail</button>
+                    <button type="submit" name="action" value="insert_index">At Index</button>
+                </div>
+            </div>
+
+            <div class="ll-group">
+                <h3>Delete</h3>
+                <div class="ll-buttons">
+                    <button type="submit" name="action" value="delete_head">Head</button>
+                    <button type="submit" name="action" value="delete_tail">Tail</button>
+                    <button type="submit" name="action" value="delete_value">By Value</button>
+                    <button type="submit" name="action" value="delete_index">At Index</button>
+                </div>
+            </div>
+
+            <div class="ll-group">
+                <h3>Other</h3>
+                <div class="ll-buttons">
+                    <button type="submit" name="action" value="search">Search</button>
+                    <button type="submit" name="action" value="reverse">Reverse</button>
+                    <button type="submit" name="action" value="clear" class="ll-danger">Clear</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

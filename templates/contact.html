@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="contact-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        {% if request.path != '/' %}
+        <a href="/">Home</a>
+        {% endif %}
+
+        {% if request.path != '/profile' %}
+        <a href="/profile">Profile</a>
+        {% endif %}
+
+        {% if request.path != '/works' %}
+        <a href="/works">Works</a>
+        {% endif %}
+
+        {% if request.path != '/contact' %}
+        <a href="/contact">Contact</a>
+        {% endif %}
+
+    </div>
+</nav>
+
+<div class="contact-container">
+
+    <div class="contact-card">
+
+        <div class="contact-header">
+            <h1>Contact Infos:</h1>
+        </div>
+
+        <div class="contact-list">
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    ✉
+                </div>
+
+                <div>
+                    <h2>Email</h2>
+                    <p>charlesandrewilagan061@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    ☎
+                </div>
+
+                <div>
+                    <h2>Phone No.</h2>
+                    <p>0991 048 6036</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    📍
+                </div>
+
+                <div>
+                    <h2>Address</h2>
+                    <p>795 Cupang, Muntinlupa City, Manuel Quezon St.</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    ⓕ
+                </div>
+
+                <div>
+                    <h2>Facebook</h2>
+                    <p>Charles Ilagan</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+<div class="family-card">
+
+    <div class="family-item">
+        <img src="{{ url_for('static', filename='images/mother.jpg') }}" alt="Mother">
+
+        <div class="family-info">
+            <h2>Mother</h2>
+            <p>Erwina Santos</p>
+            <p>☎ 0969 676 4444</p>
+        </div>
+
+        <div class="family-contact">
+            <p>✉ erjy1222@gmail.com</p>
+            <p>ⓕ Erwina Santos</p>
+        </div>
+    </div>
+
+    <div class="family-item">
+        <img src="{{ url_for('static', filename='images/father.jpg') }}" alt="Father">
+
+        <div class="family-info">
+            <h2>Father</h2>
+            <p>Remoz Bisente</p>
+            <p>☎ 0921 885 2221</p>
+        </div>
+
+        <div class="family-contact">
+            <p>✉ remozpogixd@email.com</p>
+            <p>ⓕ Remoz Bisente</p>
+        </div>
+    </div>
+
+    <div class="family-item">
+        <img src="{{ url_for('static', filename='images/gf.jpg') }}" alt="Girlfriend">
+
+        <div class="family-info">
+            <h2>Girlfriend</h2>
+            <p>Nics Aragoncillo</p>
+            <p>☎ 0930 087 2976</p>
+        </div>
+
+        <div class="family-contact">
+            <p>✉ mandyaragoncillo10@gmail.com</p>
+            <p>ⓕ Nics Aragoncillo</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

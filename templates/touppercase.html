@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Convert String to Uppercase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="works-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        <a href="/">Home</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/works">Works</a>
+
+        <a href="/contact">Contact</a>
+
+    </div>
+</nav>
+
+
+<div class="work-container">
+
+    <div class="work-card">
+
+        <div class="work-header">
+            <h1>Convert String to Uppercase</h1>
+            <p>Enter a text and convert it to uppercase.</p>
+        </div>
+
+
+        <form action="/works/uppercase" method="post">
+
+            <label for="inputString">
+                Enter a string
+            </label>
+
+            <input
+                type="text"
+                id="inputString"
+                name="inputString"
+                placeholder="Type something..."
+                required
+            >
+
+            <input
+                type="submit"
+                value="Convert"
+            >
+
+        </form>
+
+
+        {% if result %}
+
+        <div class="result-box">
+
+            <h2>Result</h2>
+
+            <p>{{ result }}</p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

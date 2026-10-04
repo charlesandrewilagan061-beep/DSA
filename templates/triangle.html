@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Area of a Triangle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="works-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        <a href="/">Home</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/works">Works</a>
+
+        <a href="/contact">Contact</a>
+
+    </div>
+</nav>
+
+<div class="work-container">
+
+    <div class="work-card">
+
+        <div class="work-header">
+            <h1>Area of a Triangle</h1>
+            <p>Enter the base and height to calculate the area.</p>
+        </div>
+
+        <form action="/works/area/triangle" method="post">
+
+            <label for="base">Base</label>
+            <input
+                type="text"
+                id="base"
+                name="base"
+                placeholder="Enter base"
+            >
+
+            <label for="height">Height</label>
+            <input
+                type="text"
+                id="height"
+                name="height"
+                placeholder="Enter height"
+            >
+
+            <input type="submit" value="Calculate Area">
+
+        </form>
+
+        {% if error %}
+        <div class="result-box">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if result is not none %}
+        <div class="result-box">
+            <h2>Result</h2>
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
