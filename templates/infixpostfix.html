@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Infix to Postfix</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="works-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        <a href="/">Home</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/works">Works</a>
+
+        <a href="/contact">Contact</a>
+
+    </div>
+</nav>
+
+<div class="work-container">
+
+    <div class="work-card ll-card">
+
+        <div class="work-header">
+            <h1>Infix to Postfix</h1>
+            <p>Enter an infix expression to convert it into postfix using a stack.</p>
+        </div>
+
+        <form action="/works/infix-postfix" method="post">
+
+            <label for="expression">Infix Expression</label>
+
+            <input
+                type="text"
+                id="expression"
+                name="expression"
+                placeholder="e.g. (A + B) * C - D / E"
+                value="{{ expression }}"
+            >
+
+            <input type="submit" value="Convert to Postfix">
+
+        </form>
+
+        <p class="ip-hint">Supports operands (letters or numbers), + - * / % ^ and parentheses.</p>
+
+        {% if error %}
+        <div class="ll-message ll-error">{{ error }}</div>
+        {% endif %}
+
+        {% if result is not none %}
+        <div class="result-box">
+            <h2>Postfix</h2>
+            <p>{{ result }}</p>
+        </div>
+
+        <div class="ip-steps-wrap">
+            <h3>Step-by-step</h3>
+            <table class="ip-steps">
+                <thead>
+                    <tr>
+                        <th>Token</th>
+                        <th>Action</th>
+                        <th>Stack (bottom → top)</th>
+                        <th>Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for step in steps %}
+                    <tr>
+                        <td><b>{{ step.token }}</b></td>
+                        <td>{{ step.action }}</td>
+                        <td class="ip-mono">{{ step.stack or '—' }}</td>
+                        <td class="ip-mono">{{ step.output or '—' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
