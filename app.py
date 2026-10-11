@@ -3,6 +3,7 @@ import math
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 from linked_list import LinkedList
+from infix_postfix import infix_to_postfix
 
 app = Flask(__name__)
 app.secret_key = 'change-this-secret-key'  # needed for flash() messages
@@ -127,6 +128,21 @@ def linkedlist():
 
     found = request.args.get('found', type=int)
     return render_template('linkedlist.html', items=my_list.to_list(), size=len(my_list), found=found)
+
+@app.route('/works/infix-postfix', methods=['GET', 'POST'])
+def infixpostfix():
+    expression = ''
+    result = None
+    steps = None
+    error = None
+    if request.method == 'POST':
+        expression = request.form.get('expression', '').strip()
+        try:
+            result, steps = infix_to_postfix(expression)
+        except ValueError as e:
+            error = str(e)
+    return render_template('infixpostfix.html', expression=expression,
+                           result=result, steps=steps, error=error)
 
 @app.route('/contact')
 def contact():
