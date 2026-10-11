@@ -1335,3 +1335,47 @@ nav {
 .nav-right a:hover {
     color: #8ec5ff;
 }
+
+.ip-hint {
+    margin: 12px 0 0 0;
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+
+.ip-steps-wrap {
+    margin-top: 25px;
+    overflow-x: auto;
+}
+
+.ip-steps-wrap h3 {
+    margin: 0 0 10px 0;
+}
+
+.ip-steps {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.ip-steps th {
+    background: #222;
+    color: white;
+    padding: 8px 10px;
+    text-align: left;
+}
+
+.ip-steps td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.ip-steps tr:nth-child(even) td {
+    background: #f7f7f7;
+}
+
+.ip-mono {
+    font-family: monospace;
+    font-size: 15px;
+}
