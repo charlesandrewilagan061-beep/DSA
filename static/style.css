@@ -1379,3 +1379,13 @@ nav {
     font-family: monospace;
     font-size: 15px;
 }
+
+.ll-node.qd-front {
+    border-color: #b91c1c;
+    box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.25);
+}
+
+.ll-node.qd-rear:not(.qd-front) {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.3);
+}
