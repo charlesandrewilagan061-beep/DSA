@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 
 from linked_list import LinkedList
 from infix_postfix import infix_to_postfix
+from queuedequeue import Queue
 
 app = Flask(__name__)
 app.secret_key = 'change-this-secret-key'  # needed for flash() messages
@@ -11,6 +12,7 @@ app.secret_key = 'change-this-secret-key'  # needed for flash() messages
 # HTTP is stateless, so the list lives here at module level and survives
 # between requests for as long as the server keeps running.
 my_list = LinkedList()
+my_queue = Queue()
 
 @app.route('/')
 def index():
@@ -143,6 +145,36 @@ def infixpostfix():
             error = str(e)
     return render_template('infixpostfix.html', expression=expression,
                            result=result, steps=steps, error=error)
+
+@app.route('/works/queue', methods=['GET', 'POST'])
+def queue_page():
+    if request.method == 'POST':
+        action = request.form.get('action', '')
+        value = request.form.get('value', '').strip()
+
+        if action == 'enqueue':
+            if value:
+                my_queue.enqueue(value)
+                flash(f'Added "{value}" to the queue.', 'success')
+            else:
+                flash('Please enter a value.', 'error')
+
+        elif action == 'dequeue':
+            removed = my_queue.dequeue()
+
+            if removed is None:
+                flash('The queue is empty!', 'error')
+            else:
+                flash(f'Removed "{removed}" from the queue.', 'success')
+
+        return redirect(url_for('queue_page'))
+
+    return render_template(
+        'queuedequeue.html',
+        items=my_queue.to_list(),
+        size=len(my_queue)
+    )
+
 
 @app.route('/contact')
 def contact():
