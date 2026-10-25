@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Queue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="works-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        <a href="/">Home</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/works">Works</a>
+
+        <a href="/contact">Contact</a>
+
+    </div>
+</nav>
+
+<div class="work-container">
+
+    <div class="work-card ll-card">
+
+        <div class="work-header">
+            <h1>Queue &amp; Dequeue</h1>
+            <p>Add items to the rear and remove them from the front (FIFO). Size: <b>{{ size }}</b></p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="ll-message ll-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endwith %}
+
+        <!-- QUEUE VISUALIZATION -->
+        <div class="ll-visual">
+            {% if items %}
+                <span class="ll-label">FRONT</span>
+                {% for item in items %}
+                    <div class="ll-node {% if loop.first %}qd-front{% endif %} {% if loop.last %}qd-rear{% endif %}">
+                        <div class="ll-data">{{ item }}</div>
+                        <div class="ll-index">{{ loop.index0 }}</div>
+                    </div>
+                    {% if not loop.last %}<span class="ll-arrow">&rarr;</span>{% endif %}
+                {% endfor %}
+                <span class="ll-label">REAR</span>
+            {% else %}
+                <span class="ll-empty">The queue is empty. Enqueue a value to begin.</span>
+            {% endif %}
+        </div>
+
+        <!-- CONTROLS -->
+        <form action="/works/queue" method="post" class="ll-form">
+
+            <label for="value">Value</label>
+            <input type="text" id="value" name="value" placeholder="Enter a value to enqueue">
+
+            <div class="ll-group">
+                <h3>Operations</h3>
+                <div class="ll-buttons">
+                    <button type="submit" name="action" value="enqueue">Enqueue</button>
+                    <button type="submit" name="action" value="dequeue" class="ll-danger">Dequeue</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
