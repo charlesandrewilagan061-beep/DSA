@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="works-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        <a href="/">Home</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/works">Works</a>
+
+        <a href="/contact">Contact</a>
+
+    </div>
+</nav>
+
+<div class="sy-page">
+
+    <div class="sy-head">
+        <h1>Sorting Visualizer</h1>
+        <p>Pick an algorithm and watch the numbers trade places, one step at a time.</p>
+    </div>
+
+    <div class="sy-layout">
+
+        <!-- LEFT: controls -->
+        <form action="/works/sorting" method="post" id="sortForm" class="sy-side">
+
+            <label class="sy-label" for="numbers">Numbers</label>
+
+            <input
+                type="text"
+                id="numbers"
+                name="numbers"
+                class="sy-input"
+                placeholder="e.g. 64, 25, 12, 22, 11"
+                value="{{ numbers }}"
+            >
+            <span class="sy-hint">Separate with commas or spaces (up to 30).</span>
+
+            <span class="sy-label">Algorithm</span>
+
+            <div class="sy-algos">
+                {% for key, name in algorithms.items() %}
+                <input type="radio" name="algorithm" id="alg-{{ key }}" value="{{ key }}" {% if algorithm == key %}checked{% endif %}>
+                <label for="alg-{{ key }}">
+                    <b>{{ name }}</b>
+                    <small>Time {{ descriptions[key].time }}</small>
+                </label>
+                {% endfor %}
+            </div>
+
+            <div class="sy-actions">
+                <button type="submit" class="sy-btn sy-btn-primary">Sort</button>
+                <button type="button" class="sy-btn" id="randomBtn">🎲 Random</button>
+            </div>
+
+            {% if error %}
+            <div class="sy-error">{{ error }}</div>
+            {% endif %}
+
+        </form>
+
+        <!-- RIGHT: stage -->
+        <div class="sy-stage">
+
+            {% if frames %}
+            <div id="syAnim" data-frames='{{ frames | tojson }}'>
+
+                <div class="sy-top">
+                    <h2>{{ algorithms[algorithm] }}</h2>
+                    <div class="sy-chips">
+                        <span>Comparisons <b id="syCmp">0</b></span>
+                        <span>Swaps / writes <b id="sySwp">0</b></span>
+                    </div>
+                </div>
+
+                <div class="sy-caption" id="syCaption"></div>
+
+                <div class="sy-tiles" id="syTiles"></div>
+
+                <div class="sy-legend">
+                    <span><i class="sy-lg-compare"></i> Comparing</span>
+                    <span><i class="sy-lg-swap"></i> Swapping / writing</span>
+                    <span><i class="sy-lg-pivot"></i> Pivot</span>
+                    <span><i class="sy-lg-marker"></i> Smallest / boundary</span>
+                    <span><i class="sy-lg-done"></i> Sorted</span>
+                </div>
+
+                <div class="sy-controls">
+                    <button type="button" class="sy-round" id="syRestart">↺ Restart</button>
+                    <button type="button" class="sy-round" id="syBack">‹ Back</button>
+                    <button type="button" class="sy-round sy-round-main" id="syPlay">⏸ Pause</button>
+                    <button type="button" class="sy-round" id="syNext">Next ›</button>
+                </div>
+
+                <div class="sy-scrubrow">
+                    <input type="range" id="syScrub" min="0" max="0" value="0">
+                    <span id="syStep"></span>
+                </div>
+
+                <div class="sy-speedrow">
+                    <label for="sySpeed">Speed</label>
+                    <select id="sySpeed">
+                        <option value="1000">Slow</option>
+                        <option value="500" selected>Normal</option>
+                        <option value="200">Fast</option>
+                        <option value="60">Very fast</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="sy-about">
+                <h3>About {{ algorithms[algorithm] }}</h3>
+                <p>{{ descriptions[algorithm].about }}</p>
+                <div class="sy-facts">
+                    <span>Time <b>{{ descriptions[algorithm].time }}</b></span>
+                    <span>Space <b>{{ descriptions[algorithm].space }}</b></span>
+                    <span>Stable <b>{{ descriptions[algorithm].stable }}</b></span>
+                </div>
+            </div>
+
+            {% else %}
+            <div class="sy-empty">
+                <div class="sy-empty-icon">⇅</div>
+                <h2>Nothing sorted yet</h2>
+                <p>Type some numbers on the left, choose an algorithm and press <b>Sort</b>, or try <b>Random</b>.</p>
+            </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='sorting.js') }}"></script>
+
+</body>
+</html>
