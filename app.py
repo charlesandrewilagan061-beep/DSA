@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from linked_list import LinkedList
 from infix_postfix import infix_to_postfix
 from queuedequeue import Queue
+from sorting import sort_numbers, ALGORITHMS, DESCRIPTIONS
 
 app = Flask(__name__)
 app.secret_key = 'change-this-secret-key'  # needed for flash() messages
@@ -174,7 +175,22 @@ def queue_page():
         items=my_queue.to_list(),
         size=len(my_queue)
     )
-
+@app.route('/works/sorting', methods=['GET', 'POST'])
+def sorting():
+    numbers = ''
+    algorithm = 'bubble'
+    frames = None
+    error = None
+    if request.method == 'POST':
+        numbers = request.form.get('numbers', '').strip()
+        algorithm = request.form.get('algorithm', 'bubble')
+        try:
+            result, frames = sort_numbers(numbers, algorithm)
+        except ValueError as e:
+            error = str(e)
+    return render_template('sorting.html', numbers=numbers, algorithm=algorithm,
+                           algorithms=ALGORITHMS, descriptions=DESCRIPTIONS,
+                           frames=frames, error=error)
 
 @app.route('/contact')
 def contact():
