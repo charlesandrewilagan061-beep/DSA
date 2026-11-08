@@ -1938,3 +1938,35 @@ nav {
         grid-template-columns: 1fr;
     }
 }
+.bt-visual {
+    overflow-x: auto;
+    justify-content: flex-start;
+}
+
+.bt-visual svg {
+    margin: 0 auto;
+    flex-shrink: 0;
+}
+
+.bt-edge {
+    stroke: #555;
+    stroke-width: 2;
+}
+
+.bt-node circle {
+    fill: white;
+    stroke: #222;
+    stroke-width: 2;
+}
+
+.bt-node text {
+    font-size: 16px;
+    font-weight: bold;
+    fill: #222;
+}
+
+.bt-node.bt-found circle {
+    stroke: #16a34a;
+    stroke-width: 4;
+    fill: #dcfce7;
+}
