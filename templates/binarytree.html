@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Binary Tree</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="works-page">
+
+<nav>
+    <div class="nav-left">
+        <a href="/" class="website-title">🌐 OUR WEBSITE</a>
+    </div>
+
+    <div class="nav-right">
+
+        <a href="/">Home</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/works">Works</a>
+
+        <a href="/contact">Contact</a>
+
+    </div>
+</nav>
+
+<div class="work-container">
+
+    <div class="work-card ll-card">
+
+        <div class="work-header">
+            <h1>Binary Tree</h1>
+            <p>A binary search tree: smaller values go left, larger values go right. Nodes: <b>{{ size }}</b></p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="ll-message ll-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endwith %}
+
+        <!-- TREE VISUALIZATION -->
+        <div class="ll-visual bt-visual">
+            {% if nodes %}
+                {% set gap = 56 %}
+                {% set level = 70 %}
+                {% set width = nodes|length * gap + 20 %}
+                {% set height = (depth + 1) * level + 10 %}
+                <svg width="{{ width }}" height="{{ height }}" viewBox="0 0 {{ width }} {{ height }}">
+                    {% for parent, child in edges %}
+                    <line class="bt-edge"
+                          x1="{{ parent.x * gap + gap // 2 + 10 }}" y1="{{ parent.depth * level + 30 }}"
+                          x2="{{ child.x * gap + gap // 2 + 10 }}" y2="{{ child.depth * level + 30 }}"></line>
+                    {% endfor %}
+                    {% for n in nodes %}
+                    <g class="bt-node {% if found is not none and n.key == found %}bt-found{% endif %}">
+                        <circle cx="{{ n.x * gap + gap // 2 + 10 }}" cy="{{ n.depth * level + 30 }}" r="22"></circle>
+                        <text x="{{ n.x * gap + gap // 2 + 10 }}" y="{{ n.depth * level + 35 }}" text-anchor="middle">{{ n.key }}</text>
+                    </g>
+                    {% endfor %}
+                </svg>
+            {% else %}
+                <span class="ll-empty">The tree is empty. Insert a value to begin.</span>
+            {% endif %}
+        </div>
+
+        {% if traversal %}
+        <div class="result-box">
+            <h2>Post-order (Left, Right, Root)</h2>
+            <p>{{ traversal|join(' → ') }}</p>
+        </div>
+        {% endif %}
+
+        <!-- CONTROLS -->
+        <form action="/works/binarytree" method="post" class="ll-form">
+
+            <label for="value">Value</label>
+            <input type="text" id="value" name="value" placeholder="Enter a number">
+
+            <div class="ll-group">
+                <h3>Operations</h3>
+                <div class="ll-buttons">
+                    <button type="submit" name="action" value="insert">Insert</button>
+                    <button type="submit" name="action" value="search">Search</button>
+                    <button type="submit" name="action" value="postorder">Post-order Traversal</button>
+                    <button type="submit" name="action" value="delete" class="ll-danger">Delete Node</button>
+                    <button type="submit" name="action" value="clear" class="ll-danger">Clear</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
