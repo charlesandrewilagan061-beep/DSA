@@ -6,6 +6,7 @@ from linked_list import LinkedList
 from infix_postfix import infix_to_postfix
 from queuedequeue import Queue
 from sorting import sort_numbers, ALGORITHMS, DESCRIPTIONS
+from binarytree import BinaryTree
 
 app = Flask(__name__)
 app.secret_key = 'change-this-secret-key'  # needed for flash() messages
@@ -14,6 +15,7 @@ app.secret_key = 'change-this-secret-key'  # needed for flash() messages
 # between requests for as long as the server keeps running.
 my_list = LinkedList()
 my_queue = Queue()
+my_tree = BinaryTree()
 
 @app.route('/')
 def index():
@@ -32,7 +34,7 @@ def uppercase():
     result = None
     if request.method == 'POST':
         input_string = request.form.get('inputString', '')
-        result = input_string.upper()
+        result = input_string.upper()   
     return render_template('touppercase.html', result=result)
 
 @app.route('/works/area/circle', methods=['GET', 'POST'])
@@ -175,6 +177,63 @@ def queue_page():
         items=my_queue.to_list(),
         size=len(my_queue)
     )
+
+@app.route('/works/binarytree', methods=['GET', 'POST'])
+def binarytree():
+    if request.method == 'POST':
+        action = request.form.get('action', '')
+        text = request.form.get('value', '').strip()
+        found = None
+        show_post = None
+
+        try:
+            if action in ('insert', 'search', 'delete') and text == '':
+                raise ValueError('Please enter a number.')
+            key = None
+            if text != '':
+                try:
+                    number = float(text)
+                except ValueError:
+                    raise ValueError('Please enter a valid number.')
+                key = int(number) if number.is_integer() else number
+
+            if action == 'insert':
+                my_tree.insert(key)
+                flash(f'Inserted {key} into the tree.', 'success')
+            elif action == 'search':
+                if my_tree.search(my_tree.root, key) is None:
+                    flash(f'{key} was not found in the tree.', 'error')
+                else:
+                    flash(f'{key} found. Path: ' + ' -> '.join(map(str, my_tree.search_path(key))), 'success')
+                    found = key
+            elif action == 'delete':
+                my_tree.delete(key)
+                flash(f'Deleted {key} from the tree.', 'success')
+            elif action == 'postorder':
+                if my_tree.root is None:
+                    raise ValueError('The tree is empty.')
+                show_post = 1
+            elif action == 'clear':
+                my_tree.clear()
+                flash('Tree cleared.', 'success')
+            else:
+                flash('Unknown action.', 'error')
+        except ValueError as e:
+            flash(str(e), 'error')
+
+        # Post/Redirect/Get: refreshing the page will not resubmit the form.
+        return redirect(url_for('binarytree', found=found, post=show_post))
+
+    found = request.args.get('found', type=float)
+    if found is not None and found.is_integer():
+        found = int(found)
+    traversal = None
+    if request.args.get('post'):
+        traversal = my_tree.post_traversal(my_tree.root, '').rstrip('-').split('-')
+    nodes, edges, depth = my_tree.layout()
+    return render_template('binarytree.html', nodes=nodes, edges=edges, depth=depth,
+                           size=len(my_tree), found=found, traversal=traversal)
+
 @app.route('/works/sorting', methods=['GET', 'POST'])
 def sorting():
     numbers = ''
